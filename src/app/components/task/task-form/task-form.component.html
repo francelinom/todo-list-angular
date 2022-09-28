@@ -1,0 +1,34 @@
+<div class="container mt-3">
+  <form class="row g-3" [formGroup]="formulario" (ngSubmit)="salvarTask()">
+    <div class="col-md-6">
+      <label for="titulo" class="form-label">Título</label>
+      <input type="text" class="form-control" id="titulo" formControlName="title">
+    </div>
+    <div class="col-md-6">
+      <label for="status" class="form-label">Status</label>
+      <input type="text" class="form-control" id="status" formControlName="status">
+    </div>
+    <div class="col-md-6">
+      <label for="dataCriacao" class="form-label">Data criação</label>
+      <input type="date" class="form-control" id="dataCriacao" formControlName="createdAt">
+    </div>
+    <div class="col-md-6">
+      <label for="dataFinal" class="form-label">Data Final</label>
+      <input type="date" class="form-control" id="dataFinal" formControlName="deadLine">
+    </div>
+    <div class="col-12">
+      <label for="descricao" class="form-label">Descrição</label>
+      <input type="text" class="form-control" id="descricao" formControlName="description">
+    </div>
+
+    <div class="col-12">
+      <button type="button" class="btn btn-secondary m-1">
+        <i class="fa fa-angle-left"></i> Salvar
+      </button>
+      <button type="submit" class="btn btn-success">
+        <i class="fa fa-save"></i> Salvar
+      </button>
+    </div>
+  </form>
+</div>
+

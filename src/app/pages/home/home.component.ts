@@ -7,14 +7,7 @@ import { TaskService } from 'src/app/service/task.service';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  tasks: any[] = [];
+  constructor() {}
 
-  constructor(private taskService: TaskService) {}
-
-  ngOnInit(): void {
-    this.taskService.getListAll().subscribe((tasks) => {
-      this.tasks = tasks;
-      console.log(this.tasks);
-    });
-  }
+  ngOnInit(): void {}
 }

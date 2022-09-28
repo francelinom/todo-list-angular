@@ -14,4 +14,8 @@ export class TaskService {
   getListAll(): Observable<any> {
     return this.http.get<any>(`${API}tasks`);
   }
+
+  createTask(task: any): Observable<any> {
+    return this.http.post<any>(`${API}`, task);
+  }
 }
