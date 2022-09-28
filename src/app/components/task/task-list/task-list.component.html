@@ -1,0 +1,10 @@
+<div class="list-group container mt-3">
+  <a href="#" class="list-group-item list-group-item-action" aria-current="true" *ngFor="let task of tasks">
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="mb-1">{{task.title}}</h5>
+      <small>{{task.createdAt | date: 'dd/MM/yyyy'}}</small>
+    </div>
+    <p class="mb-1">{{task.description}}</p>
+    <small>Finalizar tarefa até: <strong>{{task.deadLine | date: 'dd/MM/yyyy'}}</strong></small>
+  </a>
+</div>
