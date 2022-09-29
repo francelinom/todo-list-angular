@@ -15,7 +15,16 @@ export class TaskService {
     return this.http.get<any>(`${API}tasks`);
   }
 
+  getById(id: number): Observable<any> {
+    return this.http.get<any>(`${API}tasks/${id}`);
+  }
+
   createTask(task: any): Observable<any> {
     return this.http.post<any>(`${API}tasks`, task);
+  }
+
+  updateTask(task: any): Observable<any> {
+    console.log(task);
+    return this.http.put<any>(`${API}tasks/${task.id}`, task);
   }
 }

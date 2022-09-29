@@ -1,6 +1,6 @@
 import { TaskService } from './../../../service/task.service';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-task-list',
@@ -10,12 +10,41 @@ import { Router } from '@angular/router';
 export class TaskListComponent implements OnInit {
   tasks: any[] = [];
 
-  constructor(private taskService: TaskService, private router: Router) {}
+  status: any[] = [
+    {
+      valor: 'ANDAMENTO',
+      label: 'Em andamento',
+    },
+    {
+      valor: 'NAOINICIADA',
+      label: 'Não iniciada',
+    },
+    {
+      valor: 'CONCLUIDA',
+      label: 'Concluída',
+    },
+  ];
+
+  constructor(
+    private taskService: TaskService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this.taskService.getListAll().subscribe((tasks) => {
       this.tasks = tasks;
       console.log(this.tasks);
     });
+  }
+
+  onEdit(id: number) {
+    this.router.navigate(['taskForm', id], {
+      relativeTo: this.route,
+    });
+  }
+
+  formatarStringStatus(valor: string) {
+    return this.status.find((x) => x.valor === valor)?.label;
   }
 }

@@ -3,11 +3,22 @@
     class="list-group-item list-group-item-action"
     aria-current="true"
     *ngFor="let task of tasks"
-    [routerLink]="['/taskForm/', task.id]"
+    (click)="onEdit(task.id)"
   >
     <div class="d-flex w-100 justify-content-between">
       <h5 class="mb-1">{{ task.title }}</h5>
-      <small>{{ task.createdAt | date: "dd/MM/yyyy" }}</small>
+      <small>
+        {{ task.createdAt | date: "dd/MM/yyyy" }}
+        <br>
+        <span ngClass="badge rounded-pill" style="color: aliceblue; padding: 3px; border-radius: 3px;"
+        [ngClass]="
+        {'bg-primary': task.status === 'ANDAMENTO',
+        'bg-danger': task.status === 'NAOINICIADA',
+        'bg-success': task.status === 'CONCLUIDA'
+      }">
+          {{formatarStringStatus(task.status)}}
+        </span>
+      </small>
     </div>
     <p class="mb-1">{{ task.description }}</p>
     <small
