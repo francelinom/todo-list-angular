@@ -45,7 +45,7 @@ export class TaskFormComponent implements OnInit {
 
   aplicaCssErro(campo: any) {
     return {
-      'invalid-feedback': this.verificaValidTouched(campo),
+      'is-invalid': this.verificaValidTouched(campo),
     };
   }
 }

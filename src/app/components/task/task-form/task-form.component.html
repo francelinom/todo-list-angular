@@ -6,7 +6,7 @@
   <form class="row g-3" [formGroup]="formulario" (ngSubmit)="salvarTask()">
     <div class="col-md-6 form-group">
       <label for="titulo" class="form-label">Título</label>
-      <input type="text" class="form-control" id="titulo" formControlName="title" />
+      <input type="text" class="form-control" [ngClass]="aplicaCssErro('title')" id="titulo" formControlName="title" />
       <app-mensagem-erro
       [mensagemErro]="'Campo precisar ser preenchido'"
       [mostrarErro]="verificaValidTouched('title')">
@@ -15,11 +15,11 @@
     </div>
     <div class="col-md-6">
       <label for="dataFinal" class="form-label">Data Final</label>
-      <input type="date" class="form-control" id="dataFinal" formControlName="deadLine" />
+      <input type="date" class="form-control" [ngClass]="aplicaCssErro('deadLine')" id="dataFinal" formControlName="deadLine" />
     </div>
     <div class="col-6">
       <label for="descricao" class="form-label">Descrição</label>
-      <input type="text" class="form-control" id="descricao" formControlName="description" />
+      <input type="text" class="form-control" [ngClass]="aplicaCssErro('description')" id="descricao" formControlName="description" />
       <app-mensagem-erro
       [mensagemErro]="'Campo precisar ser preenchido'"
       [mostrarErro]="verificaValidTouched('description')">
@@ -29,7 +29,7 @@
 
     <div class="col-6">
       <label for="status" class="form-label">Status</label>
-      <select class="form-select" aria-label="Default select example" formControlName="status">
+      <select class="form-select" aria-label="Default select example" [ngClass]="aplicaCssErro('status')" formControlName="status">
         <option selected>Selecione uma opção</option>
         <option [value]="'NAOINICIADA'">NAO INICIADA</option>
         <option [value]="'ANDAMENTO'">EM ANDAMENTO</option>
@@ -44,9 +44,9 @@
 
     <div class="col-12">
       <button type="button" class="btn btn-secondary m-1" [routerLink]="['/']">
-        <i class="fa fa-angle-left"></i> Salvar
+        <i class="fa fa-angle-left"></i> Voltar
       </button>
-      <button type="submit" class="btn btn-success">
+      <button type="submit" class="btn btn-success" [disabled]="formulario.invalid">
         <i class="fa fa-save"></i> Salvar
       </button>
     </div>
