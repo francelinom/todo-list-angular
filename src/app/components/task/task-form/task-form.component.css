@@ -2,6 +2,6 @@
   color: antiquewhite;
 }
 
-input, .texto-mensagem {
+input, select, option, .texto-mensagem {
   color: black;
 }

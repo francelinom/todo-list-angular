@@ -1,20 +1,45 @@
 <div class="alert alert-success alert-dismissible fade show m-3" role="alert" *ngIf="mensagem">
-  <span class="texto-mensagem">{{mensagem}}</span>
+  <span class="texto-mensagem">{{ mensagem }}</span>
   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 <div class="container mt-3">
   <form class="row g-3" [formGroup]="formulario" (ngSubmit)="salvarTask()">
-    <div class="col-md-6">
+    <div class="col-md-6 form-group">
       <label for="titulo" class="form-label">Título</label>
-      <input type="text" class="form-control" id="titulo" formControlName="title">
+      <input type="text" class="form-control" id="titulo" formControlName="title" />
+      <app-mensagem-erro
+      [mensagemErro]="'Campo precisar ser preenchido'"
+      [mostrarErro]="verificaValidTouched('title')">
+
+      </app-mensagem-erro>
     </div>
     <div class="col-md-6">
       <label for="dataFinal" class="form-label">Data Final</label>
-      <input type="date" class="form-control" id="dataFinal" formControlName="deadLine">
+      <input type="date" class="form-control" id="dataFinal" formControlName="deadLine" />
     </div>
-    <div class="col-12">
+    <div class="col-6">
       <label for="descricao" class="form-label">Descrição</label>
-      <input type="text" class="form-control" id="descricao" formControlName="description">
+      <input type="text" class="form-control" id="descricao" formControlName="description" />
+      <app-mensagem-erro
+      [mensagemErro]="'Campo precisar ser preenchido'"
+      [mostrarErro]="verificaValidTouched('description')">
+
+      </app-mensagem-erro>
+    </div>
+
+    <div class="col-6">
+      <label for="status" class="form-label">Status</label>
+      <select class="form-select" aria-label="Default select example" formControlName="status">
+        <option selected>Selecione uma opção</option>
+        <option [value]="'NAOINICIADA'">NAO INICIADA</option>
+        <option [value]="'ANDAMENTO'">EM ANDAMENTO</option>
+        <option [value]="'CONCLUIDA'">CONCLUIDA</option>
+      </select>
+      <app-mensagem-erro
+      [mensagemErro]="'Campo precisar ser preenchido'"
+      [mostrarErro]="verificaValidTouched('status')">
+
+      </app-mensagem-erro>
     </div>
 
     <div class="col-12">
@@ -27,4 +52,3 @@
     </div>
   </form>
 </div>
-

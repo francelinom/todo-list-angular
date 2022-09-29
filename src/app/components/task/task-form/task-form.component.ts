@@ -1,6 +1,6 @@
 import { TaskService } from 'src/app/service/task.service';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-task-form',
@@ -17,26 +17,35 @@ export class TaskFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.formulario = this.formBuilder.group({
-      title: [null],
-      description: [null],
-      deadLine: [null],
+      title: [null, [Validators.required, Validators.min(4)]],
+      description: [null, [Validators.required, Validators.min(4)]],
+      deadLine: [null, Validators.required],
+      status: [null, Validators.required],
     });
   }
 
   salvarTask() {
-    const form = {
-      ...this.formulario.value,
-      deadLine: this.formulario.value.deadLine + 'T09:00:00',
-    };
-
-    this.taskService.createTask(form).subscribe(
+    this.taskService.createTask(this.formulario.value).subscribe(
       (resp) => {
         this.mensagem = 'Tarefa cadastrada com sucesso!';
+        this.formulario.reset();
       },
       (error) =>
         (this.mensagem =
-          'Erro ao cadastrar tarefa. Por favor tente mais tarde!')
+          'Erro ao cadastrar tarefa. Por favor, tente mais tarde!')
     );
     this.mensagem = '';
+  }
+
+  verificaValidTouched(campo: any) {
+    return (
+      !this.formulario.get(campo)?.valid && this.formulario.get(campo)?.touched
+    );
+  }
+
+  aplicaCssErro(campo: any) {
+    return {
+      'invalid-feedback': this.verificaValidTouched(campo),
+    };
   }
 }
