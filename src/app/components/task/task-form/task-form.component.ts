@@ -9,6 +9,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class TaskFormComponent implements OnInit {
   formulario!: FormGroup;
+  mensagem: string = '';
   constructor(
     private taskService: TaskService,
     private formBuilder: FormBuilder
@@ -18,16 +19,24 @@ export class TaskFormComponent implements OnInit {
     this.formulario = this.formBuilder.group({
       title: [null],
       description: [null],
-      createdAt: [null],
       deadLine: [null],
-      updatedAt: [null],
-      status: [null],
     });
   }
 
   salvarTask() {
-    this.taskService.createTask(this.formulario.value).subscribe((resp) => {
-      console.log(resp);
-    });
+    const form = {
+      ...this.formulario.value,
+      deadLine: this.formulario.value.deadLine + 'T09:00:00',
+    };
+
+    this.taskService.createTask(form).subscribe(
+      (resp) => {
+        this.mensagem = 'Tarefa cadastrada com sucesso!';
+      },
+      (error) =>
+        (this.mensagem =
+          'Erro ao cadastrar tarefa. Por favor tente mais tarde!')
+    );
+    this.mensagem = '';
   }
 }

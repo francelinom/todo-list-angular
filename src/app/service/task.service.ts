@@ -16,6 +16,6 @@ export class TaskService {
   }
 
   createTask(task: any): Observable<any> {
-    return this.http.post<any>(`${API}`, task);
+    return this.http.post<any>(`${API}tasks`, task);
   }
 }
