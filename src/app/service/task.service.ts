@@ -24,7 +24,10 @@ export class TaskService {
   }
 
   updateTask(task: any): Observable<any> {
-    console.log(task);
     return this.http.put<any>(`${API}tasks/${task.id}`, task);
+  }
+
+  deleteTask(id: any): Observable<any> {
+    return this.http.delete<any>(`${API}tasks/${id}`);
   }
 }

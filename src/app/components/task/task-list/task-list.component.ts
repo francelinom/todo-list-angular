@@ -9,6 +9,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class TaskListComponent implements OnInit {
   tasks: any[] = [];
+  taskSelecionada: any = {};
+  mensagem: string = '';
 
   status: any[] = [
     {
@@ -32,9 +34,13 @@ export class TaskListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.iniciarListaTask();
+  }
+
+  iniciarListaTask() {
     this.taskService.getListAll().subscribe((tasks) => {
       this.tasks = tasks;
-      console.log(this.tasks);
+      this.tasks.sort();
     });
   }
 
@@ -46,5 +52,21 @@ export class TaskListComponent implements OnInit {
 
   formatarStringStatus(valor: string) {
     return this.status.find((x) => x.valor === valor)?.label;
+  }
+
+  preparaDelecao(task: any) {
+    this.taskSelecionada = task;
+  }
+
+  onDelete() {
+    this.taskService.deleteTask(this.taskSelecionada.id).subscribe(
+      (resp) => {
+        this.iniciarListaTask();
+        this.mensagem = 'Tarefa deletada com sucesso!';
+      },
+      (error) => {
+        this.mensagem = 'Erro ao deletar tarefa!';
+      }
+    );
   }
 }
