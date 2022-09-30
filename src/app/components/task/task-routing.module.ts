@@ -16,6 +16,18 @@ const routes: Routes = [
     path: 'taskForm',
     component: TaskFormComponent,
   },
+  {
+    path: 'task-progress',
+    component: TaskFormComponent,
+  },
+  {
+    path: 'task-notstarted',
+    component: TaskFormComponent,
+  },
+  {
+    path: 'task-completed',
+    component: TaskFormComponent,
+  },
 ];
 
 @NgModule({

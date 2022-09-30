@@ -1,5 +1,5 @@
 import { ActivatedRoute } from '@angular/router';
-import { TaskService } from 'src/app/service/task.service';
+import { TaskService } from 'src/app/shared/service/task.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 

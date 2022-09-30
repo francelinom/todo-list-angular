@@ -1,0 +1,52 @@
+<div class="list-group container mt-3">
+  <div class="alert alert-info alert-dismissible fade show mt-3 container" *ngIf="mensagem" role="alert">
+    {{mensagem}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+
+  <div *ngFor="let task of tasks" class="row m-1">
+    <a class="list-group-item list-group-item-action" aria-current="true" (click)="onEdit(task.id)">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">{{ task.title }}</h5>
+        <small>
+          {{ task.createdAt | date: "dd/MM/yyyy" }}
+          <br>
+          <span ngClass="badge rounded-pill" style="color: aliceblue; padding: 3px; border-radius: 3px;" [ngClass]="
+        {'bg-primary': task.status === 'ANDAMENTO',
+        'bg-danger': task.status === 'NAOINICIADA',
+        'bg-success': task.status === 'CONCLUIDA'
+      }">
+            {{formatarStringStatus(task.status)}}
+          </span>
+        </small>
+      </div>
+      <p class="mb-1">{{ task.description }}</p>
+      <small>Finalizar tarefa até:
+        <strong>{{ task.deadLine | date: "dd/MM/yyyy" }}</strong></small>
+    </a>
+    <button class="btn btn-danger" (click)="preparaDelecao(task)" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      <i class="fa fa-trash"></i> delete
+    </button>
+  </div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Confirmação</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Tem certeza que deseja deletar a tarefa <strong>{{taskSelecionada?.title}}</strong> ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="onDelete()">Confirmar</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,50 +1,90 @@
-<div class="alert alert-info alert-dismissible fade show mt-3 container" *ngIf="mensagem" role="alert">
-  {{mensagem}}
-  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>
-<div class="list-group container mt-3">
-  <div *ngFor="let task of tasks" class="row m-1">
-    <a class="list-group-item list-group-item-action" aria-current="true" (click)="onEdit(task.id)">
-      <div class="d-flex w-100 justify-content-between">
-        <h5 class="mb-1">{{ task.title }}</h5>
-        <small>
-          {{ task.createdAt | date: "dd/MM/yyyy" }}
-          <br>
-          <span ngClass="badge rounded-pill" style="color: aliceblue; padding: 3px; border-radius: 3px;" [ngClass]="
-        {'bg-primary': task.status === 'ANDAMENTO',
-        'bg-danger': task.status === 'NAOINICIADA',
-        'bg-success': task.status === 'CONCLUIDA'
-      }">
-            {{formatarStringStatus(task.status)}}
-          </span>
-        </small>
-      </div>
-      <p class="mb-1">{{ task.description }}</p>
-      <small>Finalizar tarefa até:
-        <strong>{{ task.deadLine | date: "dd/MM/yyyy" }}</strong></small>
-    </a>
-    <button class="btn btn-danger" (click)="preparaDelecao(task)" data-bs-toggle="modal" data-bs-target="#exampleModal">
-      <i class="fa fa-trash"></i> delete
+<nav>
+  <div class="nav nav-tabs mt-3 container" id="nav-tab" role="tablist">
+    <button
+      class="nav-link active"
+      id="nav-home-tab"
+      data-bs-toggle="tab"
+      data-bs-target="#nav-listAll"
+      type="button"
+      role="tab"
+      aria-controls="nav-home"
+      aria-selected="true"
+    >
+      Todas Tarefas
+    </button>
+    <button
+      class="nav-link"
+      id="nav-profile-tab"
+      data-bs-toggle="tab"
+      data-bs-target="#nav-progress"
+      type="button"
+      role="tab"
+      aria-controls="nav-profile"
+      aria-selected="false"
+    >
+      Tarefas em andamento
+    </button>
+    <button
+      class="nav-link"
+      id="nav-contact-tab"
+      data-bs-toggle="tab"
+      data-bs-target="#nav-notstarted"
+      type="button"
+      role="tab"
+      aria-controls="nav-notstarted"
+      aria-selected="false"
+    >
+      Tarefas não iniciadas
+    </button>
+    <button
+      class="nav-link"
+      id="nav-disabled-tab"
+      data-bs-toggle="tab"
+      data-bs-target="#nav-completed"
+      type="button"
+      role="tab"
+      aria-controls="nav-disabled"
+      aria-selected="false"
+    >
+      Tarefas concluídas
     </button>
   </div>
-
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Confirmação</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        Tem certeza que deseja deletar a tarefa <strong>{{taskSelecionada.title}}</strong> ?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="onDelete()">Confirmar</button>
-      </div>
-    </div>
+</nav>
+<div class="tab-content" id="nav-tabContent">
+  <div
+    class="tab-pane fade show active"
+    id="nav-listAll"
+    role="tabpanel"
+    aria-labelledby="nav-home-tab"
+    tabindex="0"
+  >
+    <app-task-card [tasks]="tasks"> </app-task-card>
+  </div>
+  <div
+    class="tab-pane fade"
+    id="nav-progress"
+    role="tabpanel"
+    aria-labelledby="nav-profile-tab"
+    tabindex="0"
+  >
+    <app-task-card [tasks]="tasksProgress"> </app-task-card>
+  </div>
+  <div
+    class="tab-pane fade"
+    id="nav-notstarted"
+    role="tabpanel"
+    aria-labelledby="nav-contact-tab"
+    tabindex="0"
+  >
+    <app-task-card [tasks]="tasksNotStarted"> </app-task-card>
+  </div>
+  <div
+    class="tab-pane fade"
+    id="nav-completed"
+    role="tabpanel"
+    aria-labelledby="nav-contact-tab"
+    tabindex="0"
+  >
+    <app-task-card [tasks]="tasksCompleted"> </app-task-card>
   </div>
 </div>

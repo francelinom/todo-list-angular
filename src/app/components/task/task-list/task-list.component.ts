@@ -1,6 +1,6 @@
-import { TaskService } from './../../../service/task.service';
+import { TaskService } from '../../../shared/service/task.service';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Task } from 'src/app/shared/models/task';
 
 @Component({
   selector: 'app-task-list',
@@ -8,65 +8,41 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./task-list.component.css'],
 })
 export class TaskListComponent implements OnInit {
-  tasks: any[] = [];
-  taskSelecionada: any = {};
-  mensagem: string = '';
+  tasks: Task[] = [];
+  tasksProgress: Task[] = [];
+  tasksNotStarted: Task[] = [];
+  tasksCompleted: Task[] = [];
 
-  status: any[] = [
-    {
-      valor: 'ANDAMENTO',
-      label: 'Em andamento',
-    },
-    {
-      valor: 'NAOINICIADA',
-      label: 'Não iniciada',
-    },
-    {
-      valor: 'CONCLUIDA',
-      label: 'Concluída',
-    },
-  ];
-
-  constructor(
-    private taskService: TaskService,
-    private router: Router,
-    private route: ActivatedRoute
-  ) {}
+  constructor(private taskService: TaskService) {}
 
   ngOnInit(): void {
     this.iniciarListaTask();
+    this.iniciarListaProgress();
+    this.iniciarListaNotStarted();
+    this.iniciarListaCompleted();
   }
 
   iniciarListaTask() {
     this.taskService.getListAll().subscribe((tasks) => {
       this.tasks = tasks;
-      this.tasks.sort();
     });
   }
 
-  onEdit(id: number) {
-    this.router.navigate(['taskForm', id], {
-      relativeTo: this.route,
+  iniciarListaProgress() {
+    this.taskService.getListProgress().subscribe((tasksProgress) => {
+      this.tasksProgress = tasksProgress;
     });
   }
 
-  formatarStringStatus(valor: string) {
-    return this.status.find((x) => x.valor === valor)?.label;
+  iniciarListaNotStarted() {
+    this.taskService.getListNotStarted().subscribe((tasksNotStarted) => {
+      this.tasksNotStarted = tasksNotStarted;
+    });
   }
 
-  preparaDelecao(task: any) {
-    this.taskSelecionada = task;
-  }
-
-  onDelete() {
-    this.taskService.deleteTask(this.taskSelecionada.id).subscribe(
-      (resp) => {
-        this.iniciarListaTask();
-        this.mensagem = 'Tarefa deletada com sucesso!';
-      },
-      (error) => {
-        this.mensagem = 'Erro ao deletar tarefa!';
-      }
-    );
+  iniciarListaCompleted() {
+    this.taskService.getListCompleted().subscribe((tasksCompleted) => {
+      this.tasksCompleted = tasksCompleted;
+    });
   }
 }
