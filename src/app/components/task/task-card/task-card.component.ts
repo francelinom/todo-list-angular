@@ -57,7 +57,7 @@ export class TaskCardComponent implements OnInit {
     this.taskSelecionada = task;
   }
 
-  onDelete() {
+  onDelete(event: any) {
     this.taskService.deleteTask(this.taskSelecionada.id).subscribe(
       (resp) => {
         this.iniciarListaTask();
