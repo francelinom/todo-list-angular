@@ -17,9 +17,6 @@ export class TaskListComponent implements OnInit {
 
   ngOnInit(): void {
     this.iniciarListaTask();
-    this.iniciarListaProgress();
-    this.iniciarListaNotStarted();
-    this.iniciarListaCompleted();
   }
 
   iniciarListaTask() {
@@ -44,5 +41,18 @@ export class TaskListComponent implements OnInit {
     this.taskService.getListCompleted().subscribe((tasksCompleted) => {
       this.tasksCompleted = tasksCompleted;
     });
+  }
+
+  pegarTabSelecionada(valor: string) {
+    if (valor === 'nav-listAll') {
+      this.iniciarListaTask();
+    } else if (valor === 'nav-progress') {
+      this.iniciarListaProgress();
+    } else if (valor === 'nav-notstarted') {
+      this.iniciarListaNotStarted();
+    } else {
+      this.iniciarListaCompleted();
+    }
+    valor = '';
   }
 }

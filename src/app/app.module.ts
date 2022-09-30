@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
+import { NgxPaginationModule } from 'ngx-pagination';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TaskModule } from './components/task/task.module';
@@ -18,6 +20,7 @@ import { SharedModule } from './shared/shared.module';
     ReactiveFormsModule,
     TaskModule,
     SharedModule,
+    NgxPaginationModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

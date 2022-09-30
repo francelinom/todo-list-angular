@@ -1,34 +1,80 @@
 <div class="list-group container mt-3">
-  <div class="alert alert-info alert-dismissible fade show mt-3 container" *ngIf="mensagem" role="alert">
-    {{mensagem}}
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  <div
+    class="alert alert-info alert-dismissible fade show mt-3 container"
+    *ngIf="mensagem"
+    role="alert"
+  >
+    {{ mensagem }}
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="alert"
+      aria-label="Close"
+    ></button>
   </div>
 
-  <div *ngFor="let task of tasks" class="row m-1">
-    <a class="list-group-item list-group-item-action" aria-current="true" (click)="onEdit(task.id)">
+  <div
+    *ngFor="
+      let task of tasks
+        | paginate
+          : {
+              itemsPerPage: pageSize,
+              currentPage: paginaAtual
+            }
+    "
+    class="row m-1"
+  >
+    <a
+      class="list-group-item list-group-item-action"
+      aria-current="true"
+      (click)="onEdit(task.id)"
+    >
       <div class="d-flex w-100 justify-content-between">
         <h5 class="mb-1">{{ task.title }}</h5>
         <small>
           {{ task.createdAt | date: "dd/MM/yyyy" }}
-          <br>
-          <span ngClass="badge rounded-pill" style="color: aliceblue; padding: 3px; border-radius: 3px;" [ngClass]="
-        {'bg-primary': task.status === 'ANDAMENTO',
-        'bg-danger': task.status === 'NAOINICIADA',
-        'bg-success': task.status === 'CONCLUIDA'
-      }">
-            {{formatarStringStatus(task.status)}}
+          <br />
+          <span
+            ngClass="badge rounded-pill"
+            style="color: aliceblue; padding: 3px; border-radius: 3px"
+            [ngClass]="{
+              'bg-primary': task.status === 'ANDAMENTO',
+              'bg-danger': task.status === 'NAOINICIADA',
+              'bg-success': task.status === 'CONCLUIDA'
+            }"
+          >
+            {{ formatarStringStatus(task.status) }}
           </span>
         </small>
       </div>
       <p class="mb-1">{{ task.description }}</p>
-      <small>Finalizar tarefa até:
-        <strong>{{ task.deadLine | date: "dd/MM/yyyy" }}</strong></small>
+      <small
+        >Finalizar tarefa até:
+        <strong>{{ task.deadLine | date: "dd/MM/yyyy" }}</strong></small
+      >
     </a>
-    <button class="btn btn-danger" (click)="preparaDelecao(task)" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-dismiss="modal">
+    <button
+      class="btn btn-danger"
+      (click)="preparaDelecao(task)"
+      data-bs-toggle="modal"
+      data-bs-target="#exampleModal"
+      data-bs-dismiss="modal"
+    >
       <i class="fa fa-trash"></i> delete
     </button>
+  </div>
+  <div class="text-center cor-texto">
+    <pagination-controls
+      (pageChange)="paginaAtual = $event"
+      previousLabel="Voltar"
+      nextLabel="Próximo"
+    >
+    </pagination-controls>
   </div>
 </div>
 
 <!-- Modal -->
-<app-modal-delete (confirmDeleteEvent)="onDelete($event)" [taskSelecionada]="taskSelecionada"></app-modal-delete>
+<app-modal-delete
+  (confirmDeleteEvent)="onDelete($event)"
+  [taskSelecionada]="taskSelecionada"
+></app-modal-delete>

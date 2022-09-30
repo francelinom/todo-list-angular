@@ -13,6 +13,8 @@ export class TaskCardComponent implements OnInit {
 
   taskSelecionada!: Task;
   mensagem: string = '';
+  pageSize: number = 5;
+  paginaAtual: number = 1;
 
   status: any[] = [
     {

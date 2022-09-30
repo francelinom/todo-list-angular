@@ -1,40 +1,44 @@
 <nav>
   <div class="nav nav-tabs mt-3 container" role="tablist">
     <button
-      class="nav-link active"
+      class="nav-link active cor-texto"
       data-bs-toggle="tab"
       data-bs-target="#nav-listAll"
       type="button"
       role="tab"
+      (click)="pegarTabSelecionada('nav-listAll')"
     >
-      Todas Tarefas
+      <span>Todas Tarefas</span>
     </button>
     <button
-      class="nav-link"
+      class="nav-link cor-texto"
       data-bs-toggle="tab"
       data-bs-target="#nav-progress"
       type="button"
       role="tab"
+      (click)="pegarTabSelecionada('nav-progress')"
     >
-      Tarefas em andamento
+    <span>Tarefas em andamento</span>
     </button>
     <button
-      class="nav-link"
+      class="nav-link cor-texto"
       data-bs-toggle="tab"
       data-bs-target="#nav-notstarted"
       type="button"
       role="tab"
+      (click)="pegarTabSelecionada('nav-notstarted')"
     >
-      Tarefas não iniciadas
+      <span>Tarefas não iniciadas</span>
     </button>
     <button
-      class="nav-link"
+      class="nav-link cor-texto"
       data-bs-toggle="tab"
       data-bs-target="#nav-completed"
       type="button"
       role="tab"
+      (click)="pegarTabSelecionada('nav-completed')"
     >
-      Tarefas concluídas
+      <span>Tarefas concluídas</span>
     </button>
   </div>
 </nav>
