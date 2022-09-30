@@ -1,5 +1,10 @@
-<div class="list-group container mt-3">
-  <div
+<!-- Modal -->
+<app-modal-delete
+  (confirmDeleteEvent)="onDelete($event)"
+  [taskSelecionada]="taskSelecionada"
+></app-modal-delete>
+
+<div
     class="alert alert-info alert-dismissible fade show mt-3 container"
     *ngIf="mensagem"
     role="alert"
@@ -13,30 +18,33 @@
     ></button>
   </div>
 
-  <div
-    *ngFor="
-      let task of tasks
-        | paginate
-          : {
-              itemsPerPage: pageSize,
-              currentPage: paginaAtual
-            }
-    "
-    class="row m-1"
-  >
-    <a
-      class="list-group-item list-group-item-action"
-      aria-current="true"
-      (click)="onEdit(task.id)"
+<table class="table table-striped container table-danger">
+  <thead>
+    <tr>
+      <th scope="col">Título</th>
+      <th scope="col">Descrição</th>
+      <th scope="col">Data de criação</th>
+      <th scope="col">Finalizar em</th>
+      <th scope="col">Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr
+      *ngFor="
+        let task of tasks
+          | paginate
+            : {
+                itemsPerPage: pageSize,
+                currentPage: paginaAtual
+              }
+      "
     >
-      <div class="d-flex w-100 justify-content-between">
-        <h5 class="mb-1">{{ task.title }}</h5>
-        <small>
-          {{ task.createdAt | date: "dd/MM/yyyy" }}
-          <br />
+      <td>
+        {{ task.title }}
+        <br />
           <span
             ngClass="badge rounded-pill"
-            style="color: aliceblue; padding: 3px; border-radius: 3px"
+            style="color: aliceblue; padding: 3px; border-radius: 3px; font-size: 12px;"
             [ngClass]="{
               'bg-primary': task.status === 'ANDAMENTO',
               'bg-danger': task.status === 'NAOINICIADA',
@@ -45,36 +53,35 @@
           >
             {{ formatarStringStatus(task.status) }}
           </span>
-        </small>
-      </div>
-      <p class="mb-1">{{ task.description }}</p>
-      <small
-        >Finalizar tarefa até:
-        <strong>{{ task.deadLine | date: "dd/MM/yyyy" }}</strong></small
-      >
-    </a>
-    <button
-      class="btn btn-danger"
-      (click)="preparaDelecao(task)"
-      data-bs-toggle="modal"
-      data-bs-target="#exampleModal"
-      data-bs-dismiss="modal"
-    >
-      <i class="fa fa-trash"></i> delete
-    </button>
-  </div>
-  <div class="text-center cor-texto">
-    <pagination-controls
-      (pageChange)="paginaAtual = $event"
-      previousLabel="Voltar"
-      nextLabel="Próximo"
-    >
-    </pagination-controls>
-  </div>
-</div>
+      </td>
+      <td>{{ task.description }}</td>
+      <td>{{ task.createdAt| date: "dd/MM/yyyy" }}</td>
+      <td>{{ task.deadLine | date: "dd/MM/yyyy" }}</td>
+      <td>
+        <button
+          class="btn btn-danger m-1"
+          (click)="preparaDelecao(task)"
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal"
+        >
+          <i class="fa fa-trash"></i>
+        </button>
 
-<!-- Modal -->
-<app-modal-delete
-  (confirmDeleteEvent)="onDelete($event)"
-  [taskSelecionada]="taskSelecionada"
-></app-modal-delete>
+        <button
+          class="btn btn-primary"
+          (click)="onEdit(task.id)"
+        >
+          <i class="fa fa-pencil"></i>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<div class="text-center cor-texto">
+  <pagination-controls
+    (pageChange)="paginaAtual = $event"
+    previousLabel="Voltar"
+    nextLabel="Próximo"
+  >
+  </pagination-controls>
+</div>
