@@ -23,5 +23,11 @@
         </li>
       </ul>
     </div>
+    <button class="btn btn-warning" (click)="toggle()" *ngIf="themeDark">
+      <i class="fa fa-sun-o"></i>
+    </button>
+    <button class="btn btn-dark" (click)="toggle()" *ngIf="!themeDark">
+      <i class="fa fa-moon-o"></i>
+    </button>
   </div>
 </nav>

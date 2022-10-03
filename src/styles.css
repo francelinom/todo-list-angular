@@ -6,6 +6,28 @@
   box-sizing: border-box;
 }
 
+:root {
+  --primary: #1976D2;
+  --body: #fff;
+  --text-menu: #fff;
+  --text-body: #4B4B4B;
+}
+
+:root .dark-theme {
+  --primary: #0D47A1;
+  --body: #4B4B4B;
+  --text-menu: #fff;
+  --text-body: #fff;
+}
+
 body {
-  background-color: #1b1c20;
+  background-color: var(--body);
+}
+
+:root .dark-theme label{
+  color: antiquewhite;
+}
+
+input, select, option, .texto-mensagem {
+  color: black;
 }
