@@ -31,3 +31,11 @@ body {
 input, select, option, .texto-mensagem {
   color: black;
 }
+
+:root .dark-theme table {
+  background-color: #ffcaca;
+}
+
+:root .dark-theme .cor-texto > span  {
+  color: #ff0b23
+}
